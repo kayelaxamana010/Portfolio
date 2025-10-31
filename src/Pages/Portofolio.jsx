@@ -309,18 +309,23 @@ export default function FullWidthTabs() {
           >
             <Tab
               icon={<Code className="mb-2 w-5 h-5 transition-all duration-300" />}
-              label="Projects & Case Studies"
+              label="Projects"
               {...a11yProps(0)}
             />
             <Tab
-              icon={<Award className="mb-2 w-5 h-5 transition-all duration-300" />}
-              label="Certificates"
+              icon={<Code className="mb-2 w-5 h-5 transition-all duration-300" />}
+              label="Case Studies"
               {...a11yProps(1)}
             />
             <Tab
               icon={<Boxes className="mb-2 w-5 h-5 transition-all duration-300" />}
               label="Tech Stack"
               {...a11yProps(2)}
+            />
+            <Tab
+              icon={<Award className="mb-2 w-5 h-5 transition-all duration-300" />}
+              label="Certificates"
+              {...a11yProps(3)}
             />
           </Tabs>
         </AppBar>
@@ -330,6 +335,7 @@ export default function FullWidthTabs() {
           index={value}
           onChangeIndex={setValue}
         >
+          {/* Tab 0: Projects */}
           <TabPanel value={value} index={0} dir={theme.direction}>
             <div className="container mx-auto flex justify-center items-center overflow-hidden">
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 2xl:grid-cols-3 gap-5">
@@ -360,7 +366,36 @@ export default function FullWidthTabs() {
             )}
           </TabPanel>
 
+          {/* Tab 1: Case Studies */}
           <TabPanel value={value} index={1} dir={theme.direction}>
+            <div className="container mx-auto flex justify-center items-center overflow-hidden">
+              <div className="text-center py-20">
+                <p className="text-light-text-secondary dark:text-slate-400 text-lg">
+                  Case Studies coming soon...
+                </p>
+              </div>
+            </div>
+          </TabPanel>
+
+          {/* Tab 2: Tech Stack */}
+          <TabPanel value={value} index={2} dir={theme.direction}>
+            <div className="container mx-auto flex justify-center items-center overflow-hidden pb-[5%]">
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 lg:gap-8 gap-5">
+                {techStacks.map((stack, index) => (
+                  <div
+                    key={index}
+                    data-aos={index % 3 === 0 ? "fade-up-right" : index % 3 === 1 ? "fade-up" : "fade-up-left"}
+                    data-aos-duration={index % 3 === 0 ? "1000" : index % 3 === 1 ? "1200" : "1000"}
+                  >
+                    <TechStackIcon TechStackIcon={stack.icon} Language={stack.language} />
+                  </div>
+                ))}
+              </div>
+            </div>
+          </TabPanel>
+
+          {/* Tab 3: Certificates */}
+          <TabPanel value={value} index={3} dir={theme.direction}>
             <div className="container mx-auto flex justify-center items-center overflow-hidden">
               <div className="grid grid-cols-1 md:grid-cols-3 md:gap-5 gap-4">
                 {displayedCertificates.map((certificate, index) => (
@@ -382,22 +417,6 @@ export default function FullWidthTabs() {
                 />
               </div>
             )}
-          </TabPanel>
-
-          <TabPanel value={value} index={2} dir={theme.direction}>
-            <div className="container mx-auto flex justify-center items-center overflow-hidden pb-[5%]">
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 lg:gap-8 gap-5">
-                {techStacks.map((stack, index) => (
-                  <div
-                    key={index}
-                    data-aos={index % 3 === 0 ? "fade-up-right" : index % 3 === 1 ? "fade-up" : "fade-up-left"}
-                    data-aos-duration={index % 3 === 0 ? "1000" : index % 3 === 1 ? "1200" : "1000"}
-                  >
-                    <TechStackIcon TechStackIcon={stack.icon} Language={stack.language} />
-                  </div>
-                ))}
-              </div>
-            </div>
           </TabPanel>
         </SwipeableViews>
       </Box>
