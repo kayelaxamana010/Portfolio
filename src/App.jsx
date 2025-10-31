@@ -71,7 +71,7 @@ function App() {
       <Routes>
         <Route path="/" element={<LandingPage showWelcome={showWelcome} setShowWelcome={setShowWelcome} />} />
         <Route path="/project/:id" element={<ProjectPageLayout />} />
-         <Route path="*" element={<NotFoundPage />} /> {/* Ini route 404 */}
+         <Route path="*" element={<NotFoundPage />} /> {/* This is the 404 route */}
       </Routes>
     </BrowserRouter>
   );
