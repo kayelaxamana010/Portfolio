@@ -23,8 +23,8 @@ const ToggleButton = ({ onClick, isShowingMore }) => (
     onClick={onClick}
     className="
       px-3 py-1.5
-      text-slate-300 
-      hover:text-white 
+      text-light-text-secondary dark:text-slate-300 
+      hover:text-light-accent dark:hover:text-white 
       text-sm 
       font-medium 
       transition-all 
@@ -33,16 +33,17 @@ const ToggleButton = ({ onClick, isShowingMore }) => (
       flex 
       items-center 
       gap-2
-      bg-white/5 
-      hover:bg-white/10
-      rounded-md
+      bg-white/80 dark:bg-white/5 
+      hover:bg-light-bg-secondary dark:hover:bg-white/10
+      rounded-2xl
       border 
-      border-white/10
-      hover:border-white/20
+      border-gray-200 dark:border-white/10
+      hover:border-light-accent dark:hover:border-white/20
       backdrop-blur-sm
       group
       relative
       overflow-hidden
+      shadow-soft dark:shadow-none
     "
   >
     <span className="relative z-10 flex items-center gap-2">
@@ -66,7 +67,7 @@ const ToggleButton = ({ onClick, isShowingMore }) => (
         <polyline points={isShowingMore ? "18 15 12 9 6 15" : "6 9 12 15 18 9"}></polyline>
       </svg>
     </span>
-    <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-purple-500/50 transition-all duration-300 group-hover:w-full"></span>
+    <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-light-accent-secondary dark:bg-purple-500/50 transition-all duration-300 group-hover:w-full"></span>
   </button>
 );
 
@@ -102,20 +103,26 @@ function a11yProps(index) {
   };
 }
 
-// techStacks tetap sama
+// Updated Tech Stack
 const techStacks = [
-  { icon: "html.svg", language: "HTML" },
-  { icon: "css.svg", language: "CSS" },
-  { icon: "javascript.svg", language: "JavaScript" },
-  { icon: "tailwind.svg", language: "Tailwind CSS" },
-  { icon: "reactjs.svg", language: "ReactJS" },
-  { icon: "vite.svg", language: "Vite" },
-  { icon: "nodejs.svg", language: "Node JS" },
-  { icon: "bootstrap.svg", language: "Bootstrap" },
-  { icon: "firebase.svg", language: "Firebase" },
-  { icon: "MUI.svg", language: "Material UI" },
-  { icon: "vercel.svg", language: "Vercel" },
-  { icon: "SweetAlert.svg", language: "SweetAlert2" },
+  { icon: "aws.svg", language: "AWS" },
+  { icon: "google-cloud.svg", language: "Google Cloud" },
+  { icon: "github.svg", language: "GitHub" },
+  { icon: "confluence.svg", language: "Confluence" },
+  { icon: "jira.svg", language: "Jira" },
+  { icon: "windows.svg", language: "Windows" },
+  { icon: "linux.svg", language: "Linux" },
+  { icon: "make.svg", language: "Make" },
+  { icon: "zapier.svg", language: "Zapier" },
+  { icon: "mysql.svg", language: "MySQL" },
+  { icon: "postgresql.svg", language: "PostgreSQL" },
+  { icon: "powershell.svg", language: "PowerShell" },
+  { icon: "sap.svg", language: "SAP" },
+  { icon: "slack.svg", language: "Slack" },
+  { icon: "microsoft-office.svg", language: "MS Office" },
+  { icon: "snow.svg", language: "ServiceNow" },
+  { icon: "cursor-ai.svg", language: "Cursor AI" },
+  { icon: "openai.svg", language: "OpenAI" },
 ];
 
 export default function FullWidthTabs() {
@@ -137,24 +144,24 @@ export default function FullWidthTabs() {
 
   const fetchData = useCallback(async () => {
     try {
-      // Mengambil data dari Supabase secara paralel
+      // Fetch data from Supabase in parallel
       const [projectsResponse, certificatesResponse] = await Promise.all([
         supabase.from("projects").select("*").order('id', { ascending: true }),
         supabase.from("certificates").select("*").order('id', { ascending: true }), 
       ]);
 
-      // Error handling untuk setiap request
+      // Error handling for each request
       if (projectsResponse.error) throw projectsResponse.error;
       if (certificatesResponse.error) throw certificatesResponse.error;
 
-      // Supabase mengembalikan data dalam properti 'data'
+      // Supabase returns data in the 'data' property
       const projectData = projectsResponse.data || [];
       const certificateData = certificatesResponse.data || [];
 
       setProjects(projectData);
       setCertificates(certificateData);
 
-      // Store in localStorage (fungsionalitas ini tetap dipertahankan)
+      // Store in localStorage (this functionality is maintained)
       localStorage.setItem("projects", JSON.stringify(projectData));
       localStorage.setItem("certificates", JSON.stringify(certificateData));
     } catch (error) {
@@ -165,7 +172,7 @@ export default function FullWidthTabs() {
 
 
   useEffect(() => {
-    // Coba ambil dari localStorage dulu untuk laod lebih cepat
+    // Try taking it from localStorage first for faster loading.
     const cachedProjects = localStorage.getItem('projects');
     const cachedCertificates = localStorage.getItem('certificates');
 
@@ -174,7 +181,7 @@ export default function FullWidthTabs() {
         setCertificates(JSON.parse(cachedCertificates));
     }
     
-    fetchData(); // Tetap panggil fetchData untuk sinkronisasi data terbaru
+    fetchData(); // Still call fetchData to synchronize latest data
   }, [fetchData]);
 
   const handleChange = (event, newValue) => {
@@ -192,24 +199,18 @@ export default function FullWidthTabs() {
   const displayedProjects = showAllProjects ? projects : projects.slice(0, initialItems);
   const displayedCertificates = showAllCertificates ? certificates : certificates.slice(0, initialItems);
 
-  // Sisa dari komponen (return statement) tidak ada perubahan
+  // Rest of the component (return statement) remains unchanged
   return (
-    <div className="md:px-[10%] px-[5%] w-full sm:mt-0 mt-[3rem] bg-[#030014] overflow-hidden" id="Portofolio">
+    <div className="md:px-[10%] px-[5%] w-full sm:mt-0 mt-[3rem] bg-transparent overflow-hidden" id="Portofolio">
       {/* Header section - unchanged */}
       <div className="text-center pb-10" data-aos="fade-up" data-aos-duration="1000">
-        <h2 className="inline-block text-3xl md:text-5xl font-bold text-center mx-auto text-transparent bg-clip-text bg-gradient-to-r from-[#6366f1] to-[#a855f7]">
-          <span style={{
-            color: '#6366f1',
-            backgroundImage: 'linear-gradient(45deg, #6366f1 10%, #a855f7 93%)',
-            WebkitBackgroundClip: 'text',
-            backgroundClip: 'text',
-            WebkitTextFillColor: 'transparent'
-          }}>
-            Portfolio Showcase
-          </span>
+        <h2 className="inline-block text-3xl md:text-5xl font-bold text-center mx-auto text-transparent bg-clip-text bg-gradient-to-r from-light-accent to-light-accent-secondary dark:from-dark-accent dark:to-dark-accent-secondary">
+          Portfolio Showcase
         </h2>
-        <p className="text-slate-400 max-w-2xl mx-auto text-sm md:text-base mt-2">
-          Explore my journey through projects, certifications, and technical expertise. 
+        <p className="text-light-text-secondary dark:text-slate-400 max-w-2xl mx-auto text-sm md:text-base mt-2">
+          Explore my journey through projects, certifications, and technical expertise.
+        </p>
+        <p className="text-light-text-secondary dark:text-slate-400 max-w-2xl mx-auto text-sm md:text-base mt-2">
           Each section represents a milestone in my continuous learning path.
         </p>
       </div>
@@ -221,10 +222,15 @@ export default function FullWidthTabs() {
           elevation={0}
           sx={{
             bgcolor: "transparent",
-            border: "1px solid rgba(255, 255, 255, 0.1)",
-            borderRadius: "20px",
+            border: "1px solid rgba(229, 231, 235, 0.5)",
+            borderRadius: "24px",
             position: "relative",
             overflow: "hidden",
+            boxShadow: "0 2px 15px rgba(0, 0, 0, 0.08)",
+            ".dark &": {
+              border: "1px solid rgba(255, 255, 255, 0.1)",
+              boxShadow: "none",
+            },
             "&::before": {
               content: '""',
               position: "absolute",
@@ -232,9 +238,12 @@ export default function FullWidthTabs() {
               left: 0,
               right: 0,
               bottom: 0,
-              background: "linear-gradient(180deg, rgba(139, 92, 246, 0.03) 0%, rgba(59, 130, 246, 0.03) 100%)",
+              background: "linear-gradient(180deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%)",
               backdropFilter: "blur(10px)",
               zIndex: 0,
+              ".dark &": {
+                background: "linear-gradient(180deg, rgba(139, 92, 246, 0.03) 0%, rgba(59, 130, 246, 0.03) 100%)",
+              },
             },
           }}
           className="md:px-4"
@@ -251,27 +260,42 @@ export default function FullWidthTabs() {
               "& .MuiTab-root": {
                 fontSize: { xs: "0.9rem", md: "1rem" },
                 fontWeight: "600",
-                color: "#94a3b8",
+                color: "#718096",
                 textTransform: "none",
                 transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
                 padding: "20px 0",
                 zIndex: 1,
                 margin: "8px",
-                borderRadius: "12px",
+                borderRadius: "16px",
+                ".dark &": {
+                  color: "#94a3b8",
+                },
                 "&:hover": {
-                  color: "#ffffff",
-                  backgroundColor: "rgba(139, 92, 246, 0.1)",
+                  color: "#667eea",
+                  backgroundColor: "rgba(102, 126, 234, 0.08)",
                   transform: "translateY(-2px)",
+                  ".dark &": {
+                    color: "#ffffff",
+                    backgroundColor: "rgba(139, 92, 246, 0.1)",
+                  },
                   "& .lucide": {
                     transform: "scale(1.1) rotate(5deg)",
                   },
                 },
                 "&.Mui-selected": {
-                  color: "#fff",
-                  background: "linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(59, 130, 246, 0.2))",
-                  boxShadow: "0 4px 15px -3px rgba(139, 92, 246, 0.2)",
+                  color: "#1a202c",
+                  background: "linear-gradient(135deg, rgba(102, 126, 234, 0.15), rgba(118, 75, 162, 0.15))",
+                  boxShadow: "0 2px 15px rgba(102, 126, 234, 0.2)",
+                  ".dark &": {
+                    color: "#fff",
+                    background: "linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(59, 130, 246, 0.2))",
+                    boxShadow: "0 4px 15px -3px rgba(139, 92, 246, 0.2)",
+                  },
                   "& .lucide": {
-                    color: "#a78bfa",
+                    color: "#667eea",
+                    ".dark &": {
+                      color: "#a78bfa",
+                    },
                   },
                 },
               },
@@ -285,7 +309,7 @@ export default function FullWidthTabs() {
           >
             <Tab
               icon={<Code className="mb-2 w-5 h-5 transition-all duration-300" />}
-              label="Projects"
+              label="Projects & Case Studies"
               {...a11yProps(0)}
             />
             <Tab
