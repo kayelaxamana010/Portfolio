@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useCallback } from "react";
+import { useLocation } from "react-router-dom";
 
 import { supabase } from "../supabase"; 
 
@@ -11,6 +12,7 @@ import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import CardProject from "../components/CardProject";
+import CardCaseStudy from "../components/CardCaseStudy";
 import TechStackIcon from "../components/TechStackIcon";
 import AOS from "aos";
 import "aos/dist/aos.css";
@@ -125,12 +127,34 @@ const techStacks = [
   { icon: "openai.svg", language: "OpenAI" },
 ];
 
+// Sample Case Studies data (for testing - replace with Supabase data later)
+const sampleCaseStudies = [
+  {
+    id: 1,
+    Title: "Mobile Safe SSL Renewal for Power BI Report Server",
+    Description: "Replaced and deployed a new Entrust certificate across AWS ACM, Load Balancer, and Power BI Report Server. Ensured secure mobile access on corporate WiFi with clear verification and rollback."
+  },
+  {
+    id: 2,
+    Title: "ServiceNow Automation for Database User Access Requests",
+    Description: "Automated intake and fulfillment of MySQL/Aurora DB user access via ServiceNow. Applied least-privilege by environment, stored credentials in the vault, and notified users with time-boxed links."
+  },
+  {
+    id: 3,
+    Title: "Restoring Connectivity via Power BI On-premises Data Gateway Restart",
+    Description: "A repeatable, low-risk procedure to restart the on-premises data gateway when refreshes or live connections fail. Covers Gateway UI restart and Windows Services fallback, with sign-in and status checks."
+  }
+];
+
 export default function FullWidthTabs() {
   const theme = useTheme();
+  const location = useLocation();
   const [value, setValue] = useState(0);
   const [projects, setProjects] = useState([]);
+  const [caseStudies, setCaseStudies] = useState([]);
   const [certificates, setCertificates] = useState([]);
   const [showAllProjects, setShowAllProjects] = useState(false);
+  const [showAllCaseStudies, setShowAllCaseStudies] = useState(false);
   const [showAllCertificates, setShowAllCertificates] = useState(false);
   const isMobile = window.innerWidth < 768;
   const initialItems = isMobile ? 4 : 6;
@@ -139,33 +163,47 @@ export default function FullWidthTabs() {
     AOS.init({
       once: false,
     });
+    
+    // Check if coming from case study page
+    const fromCaseStudy = sessionStorage.getItem('returnToCaseStudies');
+    if (fromCaseStudy === 'true') {
+      setValue(1); // Set to Case Studies tab (index 1)
+      sessionStorage.removeItem('returnToCaseStudies'); // Clean up
+    }
   }, []);
 
 
   const fetchData = useCallback(async () => {
     try {
       // Fetch data from Supabase in parallel
-      const [projectsResponse, certificatesResponse] = await Promise.all([
+      const [projectsResponse, caseStudiesResponse, certificatesResponse] = await Promise.all([
         supabase.from("projects").select("*").order('id', { ascending: true }),
+        supabase.from("case_studies").select("*").order('id', { ascending: true }),
         supabase.from("certificates").select("*").order('id', { ascending: true }), 
       ]);
 
-      // Error handling for each request
-      if (projectsResponse.error) throw projectsResponse.error;
-      if (certificatesResponse.error) throw certificatesResponse.error;
+      // Handle each response independently with fallbacks
+      const projectData = projectsResponse.error ? [] : (projectsResponse.data || []);
+      const caseStudyData = caseStudiesResponse.error ? sampleCaseStudies : (caseStudiesResponse.data || []);
+      const certificateData = certificatesResponse.error ? [] : (certificatesResponse.data || []);
 
-      // Supabase returns data in the 'data' property
-      const projectData = projectsResponse.data || [];
-      const certificateData = certificatesResponse.data || [];
+      // Log errors but don't break the app
+      if (projectsResponse.error) console.warn("Projects fetch error:", projectsResponse.error.message);
+      if (caseStudiesResponse.error) console.warn("Case Studies fetch error (using sample data):", caseStudiesResponse.error.message);
+      if (certificatesResponse.error) console.warn("Certificates fetch error:", certificatesResponse.error.message);
 
       setProjects(projectData);
+      setCaseStudies(caseStudyData);
       setCertificates(certificateData);
 
       // Store in localStorage (this functionality is maintained)
       localStorage.setItem("projects", JSON.stringify(projectData));
+      localStorage.setItem("caseStudies", JSON.stringify(caseStudyData));
       localStorage.setItem("certificates", JSON.stringify(certificateData));
     } catch (error) {
       console.error("Error fetching data from Supabase:", error.message);
+      // Use sample data as ultimate fallback
+      setCaseStudies(sampleCaseStudies);
     }
   }, []);
 
@@ -174,12 +212,17 @@ export default function FullWidthTabs() {
   useEffect(() => {
     // Try taking it from localStorage first for faster loading.
     const cachedProjects = localStorage.getItem('projects');
+    const cachedCaseStudies = localStorage.getItem('caseStudies');
     const cachedCertificates = localStorage.getItem('certificates');
 
-    if (cachedProjects && cachedCertificates) {
-        setProjects(JSON.parse(cachedProjects));
-        setCertificates(JSON.parse(cachedCertificates));
+    if (cachedProjects) setProjects(JSON.parse(cachedProjects));
+    if (cachedCaseStudies) {
+      setCaseStudies(JSON.parse(cachedCaseStudies));
+    } else {
+      // Use sample data if no cached data
+      setCaseStudies(sampleCaseStudies);
     }
+    if (cachedCertificates) setCertificates(JSON.parse(cachedCertificates));
     
     fetchData(); // Still call fetchData to synchronize latest data
   }, [fetchData]);
@@ -191,12 +234,15 @@ export default function FullWidthTabs() {
   const toggleShowMore = useCallback((type) => {
     if (type === 'projects') {
       setShowAllProjects(prev => !prev);
+    } else if (type === 'caseStudies') {
+      setShowAllCaseStudies(prev => !prev);
     } else {
       setShowAllCertificates(prev => !prev);
     }
   }, []);
 
   const displayedProjects = showAllProjects ? projects : projects.slice(0, initialItems);
+  const displayedCaseStudies = showAllCaseStudies ? caseStudies : caseStudies.slice(0, initialItems);
   const displayedCertificates = showAllCertificates ? certificates : certificates.slice(0, initialItems);
 
   // Rest of the component (return statement) remains unchanged
@@ -369,12 +415,30 @@ export default function FullWidthTabs() {
           {/* Tab 1: Case Studies */}
           <TabPanel value={value} index={1} dir={theme.direction}>
             <div className="container mx-auto flex justify-center items-center overflow-hidden">
-              <div className="text-center py-20">
-                <p className="text-light-text-secondary dark:text-slate-400 text-lg">
-                  Case Studies coming soon...
-                </p>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 2xl:grid-cols-3 gap-5">
+                {displayedCaseStudies.map((caseStudy, index) => (
+                  <div
+                    key={caseStudy.id || index}
+                    data-aos={index % 3 === 0 ? "fade-up-right" : index % 3 === 1 ? "fade-up" : "fade-up-left"}
+                    data-aos-duration={index % 3 === 0 ? "1000" : index % 3 === 1 ? "1200" : "1000"}
+                  >
+                    <CardCaseStudy
+                      Title={caseStudy.Title}
+                      Description={caseStudy.Description}
+                      id={caseStudy.id}
+                    />
+                  </div>
+                ))}
               </div>
             </div>
+            {caseStudies.length > initialItems && (
+              <div className="mt-6 w-full flex justify-start">
+                <ToggleButton
+                  onClick={() => toggleShowMore('caseStudies')}
+                  isShowingMore={showAllCaseStudies}
+                />
+              </div>
+            )}
           </TabPanel>
 
           {/* Tab 2: Tech Stack */}

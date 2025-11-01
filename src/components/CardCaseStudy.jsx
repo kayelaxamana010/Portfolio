@@ -1,23 +1,22 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ExternalLink, ArrowRight } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 
-const CardProject = ({ Img, Title, Description, Link: ProjectLink, id }) => {
-  // Handle case when ProjectLink is empty
-  const handleLiveDemo = (e) => {
-    if (!ProjectLink) {
-      e.preventDefault();
-      alert("Live demo link is not available");
+const CardCaseStudy = ({ Title, Description, id }) => {
+  // Map case study ID to specific routes
+  const getCaseStudyRoute = (caseId) => {
+    // Map specific IDs to their respective pages
+    if (caseId === 1) {
+      return '/case-study/ssl';
     }
-  };
-  
-  const handleDetails = (e) => {
-    if (!id) {
-      e.preventDefault();
-      alert("Project details are not available");
+    if (caseId === 2) {
+      return '/case-study/servicenow';
     }
+    if (caseId === 3) {
+      return '/case-study/powerbi';
+    }
+    return `/case-study/${caseId}`;
   };
-  
 
   return (
     <div className="group relative w-full">
@@ -26,15 +25,7 @@ const CardProject = ({ Img, Title, Description, Link: ProjectLink, id }) => {
         <div className="absolute inset-0 bg-gradient-to-br from-light-accent/5 via-light-accent-secondary/5 to-pink-500/5 dark:from-blue-500/10 dark:via-purple-500/10 dark:to-pink-500/10 opacity-50 group-hover:opacity-70 transition-opacity duration-300"></div>
     
         <div className="relative p-5 z-10">
-          <div className="relative overflow-hidden rounded-2xl">
-            <img
-              src={Img}
-              alt={Title}
-              className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
-            />
-          </div>
-          
-          <div className="mt-4 space-y-3">
+          <div className="space-y-3">
             <h3 className="text-xl font-semibold text-light-text dark:bg-gradient-to-r dark:from-blue-200 dark:via-purple-200 dark:to-pink-200 dark:bg-clip-text dark:text-transparent">
               {Title}
             </h3>
@@ -43,28 +34,10 @@ const CardProject = ({ Img, Title, Description, Link: ProjectLink, id }) => {
               {Description}
             </p>
             
-            <div className="pt-4 flex items-center justify-between">
-              {ProjectLink ? (
-                <a
-                href={ProjectLink || "#"}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={handleLiveDemo}
-                  className="inline-flex items-center space-x-2 text-light-accent dark:text-blue-400 hover:text-light-accent-secondary dark:hover:text-blue-300 transition-colors duration-200"
-                >
-                  <span className="text-sm font-medium">Live Demo</span>
-                  <ExternalLink className="w-4 h-4" />
-                </a>
-              ) : (
-                <span className="text-light-text-secondary dark:text-gray-500 text-sm">Demo Not Available</span>
-              )}
-              
-     
-
+            <div className="pt-4 flex items-center justify-end">
               {id ? (
                 <Link
-                  to={`/project/${id}`}
-                  onClick={handleDetails}
+                  to={getCaseStudyRoute(id)}
                   className="inline-flex items-center space-x-2 px-4 py-2 rounded-2xl bg-light-bg-secondary dark:bg-white/5 hover:bg-light-accent/10 dark:hover:bg-white/10 text-light-text dark:text-white/90 transition-all duration-200 hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-light-accent/50 dark:focus:ring-purple-500/50 shadow-soft dark:shadow-none"
                 >
                   <span className="text-sm font-medium">Details</span>
@@ -83,4 +56,5 @@ const CardProject = ({ Img, Title, Description, Link: ProjectLink, id }) => {
   );
 };
 
-export default CardProject;
+export default CardCaseStudy;
+
