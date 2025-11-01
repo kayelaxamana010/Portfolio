@@ -12,20 +12,6 @@
 
 ---
 
-## 📋 Table of Contents
-
-- [About](#about)
-- [Features](#features)
-- [Tech Stack](#tech-stack)
-- [Project Structure](#project-structure)
-- [Getting Started](#getting-started)
-- [Case Studies](#case-studies)
-- [Deployment](#deployment)
-- [Performance](#performance)
-- [Contact](#contact)
-
----
-
 ## 🎯 About
 
 This is my personal portfolio website built to showcase my professional work as an **IT Professional** and **DevOps Engineer** specializing in automation and AI integration. The site features a modern, glassmorphic design with seamless light/dark mode transitions and engaging animations.
