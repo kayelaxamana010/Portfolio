@@ -284,6 +284,44 @@ None at the moment! 🎉
 
 ---
 
+## 📝 Recent Updates (November 2025)
+
+### ✨ New Features
+- **Case Studies Section**: Added three comprehensive technical case studies with dedicated detail pages
+  - Mobile-Safe SSL Renewal for Power BI Report Server
+  - ServiceNow Automation for Database User Access Requests
+  - Power BI On-premises Data Gateway Restart procedures
+- **Certificate Gallery**: Integrated interactive certificate display with modal view
+  - Sample certificate data with fallback system
+  - Hover effects and fullscreen viewing
+- **Enhanced Navigation**: Improved routing and navigation for case study detail pages
+  - Direct navigation to case studies tab from detail pages
+  - Session storage for maintaining tab state
+
+### 🎨 Design Improvements
+- **Welcome Screen**: Updated to match main website's light pastel gradient theme
+  - Replaced generic icons with brand-specific social icons (GitHub, LinkedIn, WhatsApp)
+  - Consistent hover effects and styling across all icons
+- **Background Theme**: Unified light/dark mode transitions across all pages
+- **Case Study Cards**: Removed images, added consistent "Details" button styling
+
+### 🔧 Technical Enhancements
+- **Portfolio Tab Reordering**: Projects → Case Studies → Tech Stack → Certificates
+- **Error Handling**: Improved Supabase fetch error handling with sample data fallbacks
+- **Code Cleanup**: Removed unnecessary code, translated all comments to English
+- **URL Updates**: Standardized deployment URLs to `kslportfolio-id010.vercel.app`
+- **JSON-LD Structured Data**: Updated SEO metadata with correct URLs
+- **LocalStorage Caching**: Enhanced caching strategy for certificates and case studies
+
+### 🐛 Bug Fixes
+- Fixed case study tab not being selected when navigating back from detail pages
+- Resolved welcome screen showing on navigation with hash
+- Fixed certificate loading with proper fallback URLs
+- Corrected git push authentication issues with PAT setup
+- Resolved Vercel build failures with `.npmrc` configuration
+
+---
+
 ## 📄 License
 
 This project is open source and available under the [MIT License](LICENSE).
@@ -328,4 +366,5 @@ This project is open source and available under the [MIT License](LICENSE).
 [Back to Top ↑](#-katherine-laxamana---portfolio-website)
 
 </div>
+
 
