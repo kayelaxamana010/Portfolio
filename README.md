@@ -122,38 +122,6 @@ Portofolio_V5/
 
 ---
 
-## 📚 Case Studies
-
-### 1. **Mobile-Safe SSL Renewal for Power BI Report Server**
-**Challenge:** Renew SSL certificate ensuring secure mobile access on corporate Wi-Fi  
-**Solution:** End-to-end certificate deployment across AWS ACM, Load Balancer, and Power BI Report Server  
-**Technologies:** Venafi, Entrust, OpenSSL, AWS ACM, Windows Server  
-**Result:** Zero downtime, verified mobile SSL trust, clear rollback procedures
-
-[View Case Study →](https://kslportfolio-id010.vercel.app/case-study/ssl)
-
----
-
-### 2. **ServiceNow Automation for Database User Access Requests**
-**Challenge:** High volume of manual database access provisioning  
-**Solution:** Automated ServiceNow workflow with environment-aware permissions  
-**Technologies:** ServiceNow, MySQL/Aurora, Password Vault, Email Notifications  
-**Result:** 80% reduction in processing time, automated credential rotation
-
-[View Case Study →](https://kslportfolio-id010.vercel.app/case-study/servicenow)
-
----
-
-### 3. **Restoring Connectivity via Power BI On-premises Data Gateway Restart**
-**Challenge:** Refresh failures and connectivity issues for Power BI reports  
-**Solution:** Repeatable, low-risk restart procedure with validation steps  
-**Technologies:** Power BI Gateway, Windows Services, RDP, Azure  
-**Result:** Reliable restoration procedure with minimal risk
-
-[View Case Study →](https://kslportfolio-id010.vercel.app/case-study/powerbi)
-
----
-
 ## 🌐 Deployment
 
 ### **Vercel (Recommended)**
@@ -281,44 +249,6 @@ Code quality and consistency rules.
 ## 🐛 Known Issues
 
 None at the moment! 🎉
-
----
-
-## 📝 Recent Updates (November 2025)
-
-### ✨ New Features
-- **Case Studies Section**: Added three comprehensive technical case studies with dedicated detail pages
-  - Mobile-Safe SSL Renewal for Power BI Report Server
-  - ServiceNow Automation for Database User Access Requests
-  - Power BI On-premises Data Gateway Restart procedures
-- **Certificate Gallery**: Integrated interactive certificate display with modal view
-  - Sample certificate data with fallback system
-  - Hover effects and fullscreen viewing
-- **Enhanced Navigation**: Improved routing and navigation for case study detail pages
-  - Direct navigation to case studies tab from detail pages
-  - Session storage for maintaining tab state
-
-### 🎨 Design Improvements
-- **Welcome Screen**: Updated to match main website's light pastel gradient theme
-  - Replaced generic icons with brand-specific social icons (GitHub, LinkedIn, WhatsApp)
-  - Consistent hover effects and styling across all icons
-- **Background Theme**: Unified light/dark mode transitions across all pages
-- **Case Study Cards**: Removed images, added consistent "Details" button styling
-
-### 🔧 Technical Enhancements
-- **Portfolio Tab Reordering**: Projects → Case Studies → Tech Stack → Certificates
-- **Error Handling**: Improved Supabase fetch error handling with sample data fallbacks
-- **Code Cleanup**: Removed unnecessary code, translated all comments to English
-- **URL Updates**: Standardized deployment URLs to `kslportfolio-id010.vercel.app`
-- **JSON-LD Structured Data**: Updated SEO metadata with correct URLs
-- **LocalStorage Caching**: Enhanced caching strategy for certificates and case studies
-
-### 🐛 Bug Fixes
-- Fixed case study tab not being selected when navigating back from detail pages
-- Resolved welcome screen showing on navigation with hash
-- Fixed certificate loading with proper fallback URLs
-- Corrected git push authentication issues with PAT setup
-- Resolved Vercel build failures with `.npmrc` configuration
 
 ---
 
