@@ -127,24 +127,36 @@ const techStacks = [
   { icon: "openai.svg", language: "OpenAI" },
 ];
 
-// Sample Case Studies data (for testing - replace with Supabase data later)
-const sampleCaseStudies = [
-  {
-    id: 1,
-    Title: "Mobile Safe SSL Renewal for Power BI Report Server",
-    Description: "Replaced and deployed a new Entrust certificate across AWS ACM, Load Balancer, and Power BI Report Server. Ensured secure mobile access on corporate WiFi with clear verification and rollback."
-  },
-  {
-    id: 2,
-    Title: "ServiceNow Automation for Database User Access Requests",
-    Description: "Automated intake and fulfillment of MySQL/Aurora DB user access via ServiceNow. Applied least-privilege by environment, stored credentials in the vault, and notified users with time-boxed links."
-  },
-  {
-    id: 3,
-    Title: "Restoring Connectivity via Power BI On-premises Data Gateway Restart",
-    Description: "A repeatable, low-risk procedure to restart the on-premises data gateway when refreshes or live connections fail. Covers Gateway UI restart and Windows Services fallback, with sign-in and status checks."
-  }
-];
+  // Sample Case Studies data (for testing - replace with Supabase data later)
+  const sampleCaseStudies = [
+    {
+      id: 1,
+      Title: "Mobile Safe SSL Renewal for Power BI Report Server",
+      Description: "Replaced and deployed a new Entrust certificate across AWS ACM, Load Balancer, and Power BI Report Server. Ensured secure mobile access on corporate WiFi with clear verification and rollback."
+    },
+    {
+      id: 2,
+      Title: "ServiceNow Automation for Database User Access Requests",
+      Description: "Automated intake and fulfillment of MySQL/Aurora DB user access via ServiceNow. Applied least-privilege by environment, stored credentials in the vault, and notified users with time-boxed links."
+    },
+    {
+      id: 3,
+      Title: "Restoring Connectivity via Power BI On-premises Data Gateway Restart",
+      Description: "A repeatable, low-risk procedure to restart the on-premises data gateway when refreshes or live connections fail. Covers Gateway UI restart and Windows Services fallback, with sign-in and status checks."
+    }
+  ];
+
+  // Sample Certificates data (for testing - replace with Supabase data later)
+  const sampleCertificates = [
+    {
+      id: 1,
+      Img: "/asana-certificate.png",
+      Title: "Asana Certified Pro",
+      Issuer: "Asana",
+      Link: "https://certifications.asana.com/344d40a1-5ad8-4dbc-83cc-7008a0d72091#acc.PQ5yGiR4"
+    },
+    // Add more certificates here as needed
+  ];
 
 export default function FullWidthTabs() {
   const theme = useTheme();
@@ -185,12 +197,12 @@ export default function FullWidthTabs() {
       // Handle each response independently with fallbacks
       const projectData = projectsResponse.error ? [] : (projectsResponse.data || []);
       const caseStudyData = caseStudiesResponse.error ? sampleCaseStudies : (caseStudiesResponse.data || []);
-      const certificateData = certificatesResponse.error ? [] : (certificatesResponse.data || []);
+      const certificateData = certificatesResponse.error ? sampleCertificates : (certificatesResponse.data || []);
 
       // Log errors but don't break the app
       if (projectsResponse.error) console.warn("Projects fetch error:", projectsResponse.error.message);
       if (caseStudiesResponse.error) console.warn("Case Studies fetch error (using sample data):", caseStudiesResponse.error.message);
-      if (certificatesResponse.error) console.warn("Certificates fetch error:", certificatesResponse.error.message);
+      if (certificatesResponse.error) console.warn("Certificates fetch error (using sample data):", certificatesResponse.error.message);
 
       setProjects(projectData);
       setCaseStudies(caseStudyData);
@@ -204,6 +216,7 @@ export default function FullWidthTabs() {
       console.error("Error fetching data from Supabase:", error.message);
       // Use sample data as ultimate fallback
       setCaseStudies(sampleCaseStudies);
+      setCertificates(sampleCertificates);
     }
   }, []);
 
@@ -222,7 +235,12 @@ export default function FullWidthTabs() {
       // Use sample data if no cached data
       setCaseStudies(sampleCaseStudies);
     }
-    if (cachedCertificates) setCertificates(JSON.parse(cachedCertificates));
+    if (cachedCertificates) {
+      setCertificates(JSON.parse(cachedCertificates));
+    } else {
+      // Use sample data if no cached data
+      setCertificates(sampleCertificates);
+    }
     
     fetchData(); // Still call fetchData to synchronize latest data
   }, [fetchData]);
