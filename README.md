@@ -289,10 +289,6 @@ This project is open source and available under the [MIT License](LICENSE).
 
 <div align="center">
 
-### ⭐ Star this repo if you found it helpful!
-
-**Made with ❤️ by Katherine Laxamana**
-
 [Back to Top ↑](#-katherine-laxamana---portfolio-website)
 
 </div>
