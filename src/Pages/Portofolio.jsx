@@ -85,7 +85,7 @@ function TabPanel({ children, value, index, ...other }) {
     >
       {value === index && (
         <Box sx={{ p: { xs: 1, sm: 3 } }}>
-          <Typography component="div">{children}</Typography>
+          {children}
         </Box>
       )}
     </div>
@@ -155,7 +155,55 @@ const techStacks = [
       Issuer: "Asana",
       Link: "https://certifications.asana.com/344d40a1-5ad8-4dbc-83cc-7008a0d72091#acc.PQ5yGiR4"
     },
-    // Add more certificates here as needed
+    {
+      id: 2,
+      Img: "/gcp-core-infra-certificate.png",
+      Title: "Google Cloud Core Infrastructure",
+      Issuer: "Google Cloud",
+      Link: "/gcp-core-infra-certificate.png"
+    },
+    {
+      id: 3,
+      Img: "/devai-agents-certificate.png",
+      Title: "AI Agents Development",
+      Issuer: "Google Cloud",
+      Link: "/devai-agents-certificate.png"
+    },
+    {
+      id: 4,
+      Img: "/gemini-da-certificate.png",
+      Title: "Gemini Data Analysis",
+      Issuer: "Google Cloud",
+      Link: "/gemini-da-certificate.png"
+    },
+    {
+      id: 5,
+      Img: "/codereview-github-certificate.png",
+      Title: "Code Review with GitHub",
+      Issuer: "GitHub",
+      Link: "/codereview-github-certificate.png"
+    },
+    {
+      id: 6,
+      Img: "/claude3-feat-certificate.png",
+      Title: "Claude 3 Features",
+      Issuer: "Anthropic",
+      Link: "/claude3-feat-certificate.png"
+    },
+    {
+      id: 7,
+      Img: "/gemini-feat-certificate.png",
+      Title: "Gemini Features",
+      Issuer: "Google Cloud",
+      Link: "/gemini-feat-certificate.png"
+    },
+    {
+      id: 8,
+      Img: "/genai-certificate.png",
+      Title: "Generative AI Fundamentals",
+      Issuer: "Google Cloud",
+      Link: "/genai-certificate.png"
+    }
   ];
 
 export default function FullWidthTabs() {
@@ -187,6 +235,16 @@ export default function FullWidthTabs() {
 
   const fetchData = useCallback(async () => {
     try {
+      // Check if Supabase is configured
+      if (!supabase) {
+        console.warn("Supabase not configured - using sample data");
+        setCaseStudies(sampleCaseStudies);
+        setCertificates(sampleCertificates);
+        localStorage.setItem("caseStudies", JSON.stringify(sampleCaseStudies));
+        localStorage.setItem("certificates", JSON.stringify(sampleCertificates));
+        return;
+      }
+
       // Fetch data from Supabase in parallel
       const [projectsResponse, caseStudiesResponse, certificatesResponse] = await Promise.all([
         supabase.from("projects").select("*").order('id', { ascending: true }),
@@ -263,7 +321,9 @@ export default function FullWidthTabs() {
   const displayedCaseStudies = showAllCaseStudies ? caseStudies : caseStudies.slice(0, initialItems);
   const displayedCertificates = showAllCertificates ? certificates : certificates.slice(0, initialItems);
 
-  // Rest of the component (return statement) remains unchanged
+  // Debug: Log certificate data - DO NOT REMOVE
+  console.log('Certificates loaded:', certificates.length, certificates);
+
   return (
     <div className="md:px-[10%] px-[5%] w-full sm:mt-0 mt-[3rem] bg-transparent overflow-hidden" id="Portofolio">
       {/* Header section - unchanged */}
@@ -478,17 +538,25 @@ export default function FullWidthTabs() {
 
           {/* Tab 3: Certificates */}
           <TabPanel value={value} index={3} dir={theme.direction}>
-            <div className="container mx-auto flex justify-center items-center overflow-hidden">
-              <div className="grid grid-cols-1 md:grid-cols-3 md:gap-5 gap-4">
-                {displayedCertificates.map((certificate, index) => (
-                  <div
-                    key={certificate.id || index}
-                    data-aos={index % 3 === 0 ? "fade-up-right" : index % 3 === 1 ? "fade-up" : "fade-up-left"}
-                    data-aos-duration={index % 3 === 0 ? "1000" : index % 3 === 1 ? "1200" : "1000"}
-                  >
-                    <Certificate ImgSertif={certificate.Img} />
-                  </div>
-                ))}
+            <div className="container mx-auto flex justify-center items-center overflow-hidden min-h-[500px]">
+              <div className="w-full">
+                <div className="grid grid-cols-1 md:grid-cols-3 md:gap-5 gap-4">
+                  {displayedCertificates.length > 0 ? (
+                    displayedCertificates.map((certificate, index) => (
+                      <div
+                        key={certificate.id || index}
+                        className="certificate-item"
+                        style={{ minHeight: '300px' }}
+                      >
+                        <Certificate ImgSertif={certificate.Img} />
+                      </div>
+                    ))
+                  ) : (
+                    <div className="col-span-3 text-center text-gray-500 dark:text-gray-400 p-10">
+                      <p>No certificates to display</p>
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
             {certificates.length > initialItems && (

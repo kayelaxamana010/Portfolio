@@ -52,6 +52,9 @@ const Certificate = ({ ImgSertif }) => {
 				<Box
 					sx={{
 						position: "relative",
+						width: "100%",
+						paddingTop: "75%", // 4:3 aspect ratio (can adjust to 56.25% for 16:9)
+						overflow: "hidden",
 						"&::before": {
 							content: '""',
 							position: "absolute",
@@ -68,10 +71,14 @@ const Certificate = ({ ImgSertif }) => {
 						src={ImgSertif}
 						alt="Certificate"
 						style={{
+							position: "absolute",
+							top: 0,
+							left: 0,
 							width: "100%",
-							height: "auto",
+							height: "100%",
 							display: "block",
-							objectFit: "cover",
+							objectFit: "contain",
+							objectPosition: "center",
 							filter: "contrast(1.10) brightness(0.9) saturate(1.1)",
 							transition: "filter 0.3s ease",
 						}}
