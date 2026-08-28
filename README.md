@@ -16,7 +16,7 @@
 
 This is my personal portfolio website built to showcase my professional work as an **IT Professional** and **DevOps Engineer** specializing in automation and AI integration. The site features a modern, glassmorphic design with seamless light/dark mode transitions and engaging animations.
 
-**Live Site:** [kslportfolio-id010.vercel.app](https://kslportfolio-id010.vercel.app/)
+**Live Site:** [https://kslportfolio.vercel.app/](https://kslportfolio.vercel.app//)
 
 ---
 
