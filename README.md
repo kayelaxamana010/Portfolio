@@ -316,7 +316,7 @@ This project is open source and available under the [MIT License](LICENSE).
 
 **Katherine Laxamana**
 
-- 🌐 Website: [kslportfolio-id010.vercel.app](https://kslportfolio-id010.vercel.app/)
+- 🌐 Website: [https://kslportfolio.vercel.app/](https://kslportfolio.vercel.app/)
 - 💼 LinkedIn: [katherine-laxamana](https://www.linkedin.com/in/katherine-laxamana/)
 - 🐙 GitHub: [@kayelaxamana010](https://github.com/kayelaxamana010)
 
