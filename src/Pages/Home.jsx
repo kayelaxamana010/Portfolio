@@ -78,8 +78,8 @@ const SocialLink = memo(({ icon: Icon, link }) => (
 const TYPING_SPEED = 100;
 const ERASING_SPEED = 50;
 const PAUSE_DURATION = 2000;
-const WORDS = ["I.T Professional", "DevOps Engineer", "Automation Specialist"];
-const TECH_STACK = ["AWS", "Make", "MySQL", "Atlassian"];
+const WORDS = ["DevOps Engineer", "Automation Specialist", "A.I Engineer"];
+const TECH_STACK = ["AWS", "Make", "n8n", "Claude Code"];
 const SOCIAL_LINKS = [
   { icon: Github, link: "https://github.com/kayelaxamana010" },
   { icon: Linkedin, link: "https://www.linkedin.com/in/katherine-laxamana/" },
@@ -196,7 +196,7 @@ const Home = () => {
 
                 {/* CTA Buttons */}
                 <div className="flex flex-row gap-3 w-full justify-start" data-aos="fade-up" data-aos-delay="1400">
-                  <CTAButton href="#Portofolio" text="Projects" icon={ExternalLink} />
+                  <CTAButton href="#Portfolio" text="Projects" icon={ExternalLink} />
                   <CTAButton href="https://mail.google.com/mail/?view=cm&fs=1&to=td.katherine.laxamana@gmail.com" text="Contact" icon={Mail} />
                 </div>
 

@@ -1,7 +1,8 @@
-import { Star, ArrowLeft, Code2, Moon, Sun } from "lucide-react";
+import { Star, ArrowLeft, Code2 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import AOS from "aos";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import ThemeToggleButton from "../components/ThemeToggleButton";
 
 /**
  * Case Study Detail Page: Power BI On-premises Data Gateway Restart
@@ -10,60 +11,25 @@ import { useEffect, useState } from "react";
 
 export default function CaseStudyPowerBI() {
   const navigate = useNavigate();
-  const [darkMode, setDarkMode] = useState(false);
 
   useEffect(() => {
     AOS.init({
       once: false,
       duration: 1000,
     });
-    // Scroll to top when component mounts
     window.scrollTo(0, 0);
-    
-    // Check for saved theme preference or default to light mode
-    const savedTheme = localStorage.getItem('theme');
-    const isDark = savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches);
-    setDarkMode(isDark);
-    if (isDark) {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
   }, []);
-
-  const toggleDarkMode = () => {
-    const newDarkMode = !darkMode;
-    setDarkMode(newDarkMode);
-    if (newDarkMode) {
-      document.documentElement.classList.add('dark');
-      localStorage.setItem('theme', 'dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-      localStorage.setItem('theme', 'light');
-    }
-  };
 
   const handleBack = () => {
     // Set flag to return to Case Studies tab
     sessionStorage.setItem('returnToCaseStudies', 'true');
     // Navigate to home with portfolio hash - App.jsx will handle skipping welcome screen
-    navigate('/#Portofolio');
+    navigate('/#Portfolio');
   };
 
   return (
     <div className="min-h-screen w-full bg-light-bg dark:bg-dark-bg transition-colors duration-300">
-      {/* Dark Mode Toggle - Fixed Position */}
-      <button
-        onClick={toggleDarkMode}
-        className="fixed top-6 right-6 z-50 p-3 rounded-2xl bg-white/80 dark:bg-white/5 hover:bg-light-bg-secondary dark:hover:bg-white/10 border border-gray-200 dark:border-white/10 shadow-soft dark:shadow-none transition-all duration-200 hover:scale-105"
-        aria-label="Toggle dark mode"
-      >
-        {darkMode ? (
-          <Sun className="h-5 w-5 text-yellow-500" />
-        ) : (
-          <Moon className="h-5 w-5 text-light-text" />
-        )}
-      </button>
+      <ThemeToggleButton />
 
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-10 pt-24">
         {/* Breadcrumb / Back */}

@@ -26,15 +26,17 @@ const CardProject = ({ Img, Title, Description, Link: ProjectLink, id }) => {
         <div className="absolute inset-0 bg-gradient-to-br from-light-accent/5 via-light-accent-secondary/5 to-pink-500/5 dark:from-blue-500/10 dark:via-purple-500/10 dark:to-pink-500/10 opacity-50 group-hover:opacity-70 transition-opacity duration-300"></div>
     
         <div className="relative p-5 z-10">
-          <div className="relative overflow-hidden rounded-2xl">
-            <img
-              src={Img}
-              alt={Title}
-              className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
-            />
-          </div>
+          {Img ? (
+            <div className="relative overflow-hidden rounded-2xl">
+              <img
+                src={Img}
+                alt={Title}
+                className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
+              />
+            </div>
+          ) : null}
           
-          <div className="mt-4 space-y-3">
+          <div className={`space-y-3 ${Img ? "mt-4" : ""}`}>
             <h3 className="text-xl font-semibold text-light-text dark:bg-gradient-to-r dark:from-blue-200 dark:via-purple-200 dark:to-pink-200 dark:bg-clip-text dark:text-transparent">
               {Title}
             </h3>

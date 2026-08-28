@@ -1,40 +1,8 @@
-import { useState, useEffect } from 'react';
 import { Moon, Sun } from 'lucide-react';
+import { useTheme } from '../hooks/useTheme';
 
 const DarkModeToggle = () => {
-    const [isDark, setIsDark] = useState(false);
-
-    // Check localStorage and system preference on mount
-    useEffect(() => {
-        const savedTheme = localStorage.getItem('theme');
-        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        
-        if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
-            setIsDark(true);
-            document.documentElement.classList.add('dark');
-            document.body.classList.add('dark');
-        } else {
-            setIsDark(false);
-            document.documentElement.classList.remove('dark');
-            document.body.classList.remove('dark');
-        }
-    }, []);
-
-    // Toggle theme
-    const toggleTheme = () => {
-        const newTheme = !isDark;
-        setIsDark(newTheme);
-        
-        if (newTheme) {
-            document.documentElement.classList.add('dark');
-            document.body.classList.add('dark');
-            localStorage.setItem('theme', 'dark');
-        } else {
-            document.documentElement.classList.remove('dark');
-            document.body.classList.remove('dark');
-            localStorage.setItem('theme', 'light');
-        }
-    };
+    const { isDark, toggleTheme } = useTheme();
 
     return (
         <button
@@ -49,14 +17,11 @@ const DarkModeToggle = () => {
             aria-label="Toggle dark mode"
         >
             <div className="relative w-6 h-6">
-                {/* Sun Icon (Light Mode) */}
                 <Sun
                     className={`absolute inset-0 w-6 h-6 text-amber-500 
                                transition-all duration-300 ease-in-out
                                ${isDark ? 'opacity-0 rotate-180 scale-0' : 'opacity-100 rotate-0 scale-100'}`}
                 />
-                
-                {/* Moon Icon (Dark Mode) */}
                 <Moon
                     className={`absolute inset-0 w-6 h-6 text-indigo-400 
                                transition-all duration-300 ease-in-out
@@ -68,4 +33,3 @@ const DarkModeToggle = () => {
 };
 
 export default DarkModeToggle;
-

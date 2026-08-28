@@ -31,14 +31,59 @@ This is my personal portfolio website built to showcase my professional work as 
 - ✅ Interactive animated background
 
 ### 📱 **Sections**
-1. **Home** - Introduction with animated typing effect
+1. **Home** - Introduction with animated typing effect and featured tech tags (AWS, Make, n8n, Claude Code)
 2. **About** - Personal background, stats, and downloadable CV
-3. **Portfolio** - Three tabs:
-   - Projects (with live demos)
-   - Case Studies (detailed technical documentation)
-   - Tech Stack (skills visualization)
-   - Certificates (interactive gallery)
+3. **Portfolio Showcase** - Four tabs:
+   - **Projects** - DevOps & automation project cards with dedicated detail pages
+   - **Case Studies** - Detailed technical documentation
+   - **Tech Stack** - Skills visualization with icon grid
+   - **Certificates** - Interactive certificate gallery with full-screen preview
 4. **Contact** - Direct email integration
+
+### 🚀 **Projects**
+Three portfolio projects with dedicated detail pages matching the site theme (light/dark mode, Poppins typography, glassmorphic cards):
+
+| Project | Route | Summary |
+|---------|-------|---------|
+| **Defguard MFA + IP Audit Pipeline** | `/project/defguard` | Serverless daily VPN audit pipeline — MFA compliance, geolocation risk, country-change detection, Slack alerts, and Google Sheets dashboard (AWS Lambda, CDK, Python) |
+| **Domain Monitoring Automation** | `/project/domain-monitor` | End-to-end domain expiry monitoring for 64 domains across multiple registrars — WhoisXML API, Google Apps Script, Sheets, Grafana, and Slack alerting |
+| **AI-Powered Member Performance Evaluation** | `/project/ai-performance-eval` | Output-based scoring from Jira and Slack artifacts via n8n and Claude API — replaces activity tracking with monthly AI-generated evaluations |
+
+Each project page includes metrics, architecture overview, key features, tech stack, and role summary. Projects merge with Supabase data when configured, with local sample data as fallback.
+
+### 🏆 **Certificates**
+Thirteen certificates in the interactive gallery (PNG preview with full-screen modal; PDF assets stored in `public/`):
+
+| Certificate | Issuer |
+|-------------|--------|
+| Asana Certified Pro | Asana |
+| Google Cloud Core Infrastructure | Google Cloud |
+| AI Agents Development | Google Cloud |
+| Gemini Data Analysis | Google Cloud |
+| Code Review with GitHub | GitHub |
+| Claude 3 Features | Anthropic |
+| Gemini Features | Google Cloud |
+| Generative AI Fundamentals | Google Cloud |
+| Applied AI-Assisted Coding | Google Cloud |
+| Automation Workflows with Cursor | Cursor |
+| Claude Code Practice | Anthropic |
+| Testing & Debugging with Cursor | Cursor |
+| Testing & Debugging with OpenAI Codex | OpenAI |
+
+**Recently added certificate assets:**
+- `applied-ai-assisted-coding-certificate` (PNG + PDF)
+- `automation-workflows-cursor-certificate` (PNG + PDF)
+- `claude-code-practice-certificate` (PNG + PDF)
+- `cursor-testing-debugging-certificate` (PNG + PDF)
+- `openai-codex-testing-debugging-certificate` (PNG + PDF)
+
+### 🧰 **Tech Stack Icons**
+Portfolio Tech Stack tab includes **21 tools**, including recently added:
+- **n8n** — workflow automation
+- **Claude** — Anthropic AI
+- **Claude Code** — AI-assisted development
+
+Home hero tags: **AWS · Make · n8n · Claude Code**
 
 ### 🔧 **Functionality**
 - ✅ Dynamic routing with React Router
@@ -88,36 +133,42 @@ Three comprehensive technical case studies with dedicated detail pages:
 ## 📁 Project Structure
 
 ```
-Portofolio_V5/
+Portfolio_V5/
 ├── public/
-│   ├── Photo.jpg              # Profile image
-│   └── images/                # Static assets
+│   ├── Photo.jpg                           # Profile image
+│   ├── *.svg                               # Tech stack icons (aws, n8n, claude, claudecode, etc.)
+│   ├── *-certificate.png                   # Certificate thumbnails
+│   └── *-certificate.pdf                   # Certificate PDFs
 ├── src/
 │   ├── components/
-│   │   ├── Background.jsx     # Animated background
-│   │   ├── CardProject.jsx    # Project card component
-│   │   ├── CardCaseStudy.jsx  # Case study card
-│   │   ├── Certificate.jsx    # Certificate modal
-│   │   ├── DarkModeToggle.jsx # Theme switcher
-│   │   ├── Navbar.jsx         # Navigation bar
-│   │   ├── ProjectDetail.jsx  # Project detail page
-│   │   └── TechStackIcon.jsx  # Tech stack icons
+│   │   ├── Background.jsx                  # Animated background
+│   │   ├── CardProject.jsx                 # Project card component
+│   │   ├── CardCaseStudy.jsx               # Case study card
+│   │   ├── Certificate.jsx                 # Certificate modal
+│   │   ├── DarkModeToggle.jsx              # Theme switcher
+│   │   ├── Navbar.jsx                      # Navigation bar
+│   │   ├── ProjectDetail.jsx               # Generic project detail page
+│   │   ├── ProjectPageShell.jsx            # Shared project page layout
+│   │   └── TechStackIcon.jsx               # Tech stack icons
 │   ├── Pages/
-│   │   ├── Home.jsx           # Landing section
-│   │   ├── About.jsx          # About section
-│   │   ├── Portofolio.jsx     # Portfolio section
-│   │   ├── CaseStudySSL.jsx   # SSL case study
+│   │   ├── Home.jsx                        # Landing section
+│   │   ├── About.jsx                       # About section
+│   │   ├── Portfolio.jsx                   # Portfolio showcase (Projects, Case Studies, Tech Stack, Certificates)
+│   │   ├── ProjectDefguard.jsx             # Defguard MFA + IP Audit Pipeline
+│   │   ├── ProjectDomainMonitor.jsx        # Domain Monitoring Automation
+│   │   ├── ProjectAIPerformanceEval.jsx    # AI Performance Evaluation System
+│   │   ├── CaseStudySSL.jsx                # SSL case study
 │   │   ├── CaseStudyServiceNow.jsx
 │   │   ├── CaseStudyPowerBI.jsx
-│   │   ├── WelcomeScreen.jsx  # Entry animation
-│   │   └── 404.jsx            # Not found page
-│   ├── App.jsx                # Main app & routing
-│   ├── main.jsx               # Entry point
-│   ├── index.css              # Global styles
-│   └── supabase.js            # Supabase config
-├── tailwind.config.js         # Tailwind configuration
-├── vite.config.js             # Vite configuration
-└── package.json               # Dependencies
+│   │   ├── WelcomeScreen.jsx               # Entry animation
+│   │   └── 404.jsx                         # Not found page
+│   ├── App.jsx                             # Main app & routing
+│   ├── main.jsx                            # Entry point
+│   ├── index.css                           # Global styles
+│   └── supabase.js                         # Supabase config (optional)
+├── tailwind.config.js                      # Tailwind configuration
+├── vite.config.js                          # Vite configuration
+└── package.json                            # Dependencies
 ```
 
 ---
@@ -239,6 +290,9 @@ Code quality and consistency rules.
 - [x] Responsive design
 - [x] SEO optimization
 - [x] Animated welcome screen
+- [x] Tech Stack updates (n8n, Claude, Claude Code icons)
+- [x] Certificate gallery expansion (13 certificates, PNG + PDF assets)
+- [x] Dedicated project detail pages (Defguard, Domain Monitor, AI Performance Eval)
 - [ ] Blog section
 - [ ] Contact form with backend
 - [ ] Multilingual support

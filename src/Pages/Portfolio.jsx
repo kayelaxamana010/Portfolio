@@ -116,6 +116,7 @@ const techStacks = [
   { icon: "linux.svg", language: "Linux" },
   { icon: "make.svg", language: "Make" },
   { icon: "zapier.svg", language: "Zapier" },
+  { icon: "n8n.svg", language: "n8n" },
   { icon: "mysql.svg", language: "MySQL" },
   { icon: "postgresql.svg", language: "PostgreSQL" },
   { icon: "powershell.svg", language: "PowerShell" },
@@ -125,7 +126,83 @@ const techStacks = [
   { icon: "snow.svg", language: "ServiceNow" },
   { icon: "cursor-ai.svg", language: "Cursor AI" },
   { icon: "openai.svg", language: "OpenAI" },
+  { icon: "claude.svg", language: "Claude" },
+  { icon: "claudecode.svg", language: "Claude Code" },
 ];
+
+  // Sample Projects data (local portfolio projects)
+  const sampleProjects = [
+    {
+      id: "defguard",
+      Title: "Defguard MFA + IP Audit Pipeline",
+      Description:
+        "Serverless daily audit pipeline that classifies VPN authentication events by MFA compliance, geolocation risk, and country-change anomalies — with Slack alerts and a Google Sheets dashboard.",
+      Img: "",
+      Link: "",
+      Github: "Private",
+      TechStack: [
+        "Python 3.12",
+        "TypeScript",
+        "AWS CDK",
+        "AWS Lambda",
+        "Amazon S3",
+        "EventBridge",
+        "Google Sheets",
+        "Defguard VPN",
+      ],
+      Features: [
+        "MFA compliance classifier for TOTP, Email OTP, WebAuthn, and proxy methods",
+        "IP & country allowlist with GeoIP enrichment",
+        "Country-change detection with S3 state persistence",
+        "Live Google Sheets dashboard via Apps Script webhook",
+        "Full IaC deployment with AWS CDK",
+      ],
+    },
+    {
+      id: "domain-monitor",
+      Title: "Domain Monitoring Automation",
+      Description:
+        "End-to-end domain expiry monitoring for 64 domains across multiple registrars — replacing an unreliable internal tool with Google Sheets, WhoisXML API, and Grafana.",
+      Img: "",
+      Link: "",
+      Github: "Private",
+      TechStack: [
+        "WhoisXML API",
+        "Google Apps Script",
+        "Google Sheets",
+        "Grafana",
+        "Slack",
+      ],
+      Features: [
+        "DomainMonitor_v4.gs with dual data source logic and Korean TLD support",
+        "Daily auto-sync trigger at 9 AM KST with Slack alerting",
+        "Grafana Infinity dashboard with KPI cards and domain tables",
+        "Operational runbook and 7-option solution evaluation report",
+      ],
+    },
+    {
+      id: "ai-performance-eval",
+      Title: "AI-Powered Member Performance Evaluation",
+      Description:
+        "Output-based scoring system using Jira and Slack artifacts — replacing activity tracking with AI-generated monthly evaluations via n8n and Claude API.",
+      Img: "",
+      Link: "",
+      Github: "Private",
+      TechStack: [
+        "n8n",
+        "Claude API",
+        "Jira REST API",
+        "Slack API",
+        "AWS S3",
+      ],
+      Features: [
+        "Five-dimension scoring rubric with 1–5 ratings and qualitative summaries",
+        "Ticket quality filter to detect low-effort or fabricated Jira tickets",
+        "Manual prototype validation before n8n automation investment",
+        "Monthly HTML report generation to S3 with Slack notifications",
+      ],
+    },
+  ];
 
   // Sample Case Studies data (for testing - replace with Supabase data later)
   const sampleCaseStudies = [
@@ -203,6 +280,41 @@ const techStacks = [
       Title: "Generative AI Fundamentals",
       Issuer: "Google Cloud",
       Link: "/genai-certificate.png"
+    },
+    {
+      id: 9,
+      Img: "/applied-ai-assisted-coding-certificate.png",
+      Title: "Applied AI-Assisted Coding",
+      Issuer: "Google Cloud",
+      Link: "/applied-ai-assisted-coding-certificate.png"
+    },
+    {
+      id: 10,
+      Img: "/automation-workflows-cursor-certificate.png",
+      Title: "Automation Workflows with Cursor",
+      Issuer: "Cursor",
+      Link: "/automation-workflows-cursor-certificate.png"
+    },
+    {
+      id: 11,
+      Img: "/claude-code-practice-certificate.png",
+      Title: "Claude Code Practice",
+      Issuer: "Anthropic",
+      Link: "/claude-code-practice-certificate.png"
+    },
+    {
+      id: 12,
+      Img: "/cursor-testing-debugging-certificate.png",
+      Title: "Testing & Debugging with Cursor",
+      Issuer: "Cursor",
+      Link: "/cursor-testing-debugging-certificate.png"
+    },
+    {
+      id: 13,
+      Img: "/openai-codex-testing-debugging-certificate.png",
+      Title: "Testing & Debugging with OpenAI Codex",
+      Issuer: "OpenAI",
+      Link: "/openai-codex-testing-debugging-certificate.png"
     }
   ];
 
@@ -224,22 +336,40 @@ export default function FullWidthTabs() {
       once: false,
     });
     
-    // Check if coming from case study page
+    // Check if coming from case study or project page
     const fromCaseStudy = sessionStorage.getItem('returnToCaseStudies');
+    const fromProject = sessionStorage.getItem('returnToProjects');
     if (fromCaseStudy === 'true') {
       setValue(1); // Set to Case Studies tab (index 1)
       sessionStorage.removeItem('returnToCaseStudies'); // Clean up
     }
+    if (fromProject === 'true') {
+      setValue(0); // Set to Projects tab (index 0)
+      sessionStorage.removeItem('returnToProjects'); // Clean up
+    }
   }, []);
 
+
+  const mergeProjects = useCallback((remoteProjects = []) => {
+    const merged = [...sampleProjects];
+    remoteProjects.forEach((project) => {
+      if (!merged.find((item) => String(item.id) === String(project.id))) {
+        merged.push(project);
+      }
+    });
+    return merged;
+  }, []);
 
   const fetchData = useCallback(async () => {
     try {
       // Check if Supabase is configured
       if (!supabase) {
         console.warn("Supabase not configured - using sample data");
+        const projectData = mergeProjects([]);
+        setProjects(projectData);
         setCaseStudies(sampleCaseStudies);
         setCertificates(sampleCertificates);
+        localStorage.setItem("projects", JSON.stringify(projectData));
         localStorage.setItem("caseStudies", JSON.stringify(sampleCaseStudies));
         localStorage.setItem("certificates", JSON.stringify(sampleCertificates));
         return;
@@ -253,7 +383,7 @@ export default function FullWidthTabs() {
       ]);
 
       // Handle each response independently with fallbacks
-      const projectData = projectsResponse.error ? [] : (projectsResponse.data || []);
+      const projectData = mergeProjects(projectsResponse.error ? [] : (projectsResponse.data || []));
       const caseStudyData = caseStudiesResponse.error ? sampleCaseStudies : (caseStudiesResponse.data || []);
       const certificateData = certificatesResponse.error ? sampleCertificates : (certificatesResponse.data || []);
 
@@ -273,10 +403,11 @@ export default function FullWidthTabs() {
     } catch (error) {
       console.error("Error fetching data from Supabase:", error.message);
       // Use sample data as ultimate fallback
+      setProjects(mergeProjects([]));
       setCaseStudies(sampleCaseStudies);
       setCertificates(sampleCertificates);
     }
-  }, []);
+  }, [mergeProjects]);
 
 
 
@@ -286,7 +417,11 @@ export default function FullWidthTabs() {
     const cachedCaseStudies = localStorage.getItem('caseStudies');
     const cachedCertificates = localStorage.getItem('certificates');
 
-    if (cachedProjects) setProjects(JSON.parse(cachedProjects));
+    if (cachedProjects) {
+      setProjects(mergeProjects(JSON.parse(cachedProjects)));
+    } else {
+      setProjects(sampleProjects);
+    }
     if (cachedCaseStudies) {
       setCaseStudies(JSON.parse(cachedCaseStudies));
     } else {
@@ -325,7 +460,7 @@ export default function FullWidthTabs() {
   console.log('Certificates loaded:', certificates.length, certificates);
 
   return (
-    <div className="md:px-[10%] px-[5%] w-full sm:mt-0 mt-[3rem] bg-transparent overflow-hidden" id="Portofolio">
+    <div className="md:px-[10%] px-[5%] w-full sm:mt-0 mt-[3rem] bg-transparent overflow-hidden" id="Portfolio">
       {/* Header section - unchanged */}
       <div className="text-center pb-10" data-aos="fade-up" data-aos-duration="1000">
         <h2 className="inline-block text-3xl md:text-5xl font-bold text-center mx-auto text-transparent bg-clip-text bg-gradient-to-r from-light-accent to-light-accent-secondary dark:from-dark-accent dark:to-dark-accent-secondary">

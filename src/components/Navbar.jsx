@@ -10,7 +10,7 @@ const Navbar = () => {
     const navItems = [
         { href: "#Home", label: "Home" },
         { href: "#About", label: "About" },
-        { href: "#Portofolio", label: "Portofolio" },
+        { href: "#Portfolio", label: "Portfolio" },
         { href: "https://mail.google.com/mail/?view=cm&fs=1&to=td.katherine.laxamana@gmail.com", label: "Contact", external: true },
     ];
 
