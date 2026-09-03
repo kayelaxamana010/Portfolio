@@ -20,12 +20,12 @@ const CardProject = ({ Img, Title, Description, Link: ProjectLink, id }) => {
   
 
   return (
-    <div className="group relative w-full">
+    <div className="group relative w-full h-full">
             
-      <div className="relative overflow-hidden rounded-3xl bg-white/80 dark:bg-gradient-to-br dark:from-slate-900/90 dark:to-slate-800/90 backdrop-blur-lg border border-gray-200 dark:border-white/10 shadow-soft-lg dark:shadow-2xl transition-all duration-300 hover:shadow-soft-lg dark:hover:shadow-purple-500/20">
+      <div className="relative overflow-hidden rounded-3xl bg-white/80 dark:bg-gradient-to-br dark:from-slate-900/90 dark:to-slate-800/90 backdrop-blur-lg border border-gray-200 dark:border-white/10 shadow-soft-lg dark:shadow-2xl transition-all duration-300 hover:shadow-soft-lg dark:hover:shadow-purple-500/20 h-full flex flex-col">
         <div className="absolute inset-0 bg-gradient-to-br from-light-accent/5 via-light-accent-secondary/5 to-pink-500/5 dark:from-blue-500/10 dark:via-purple-500/10 dark:to-pink-500/10 opacity-50 group-hover:opacity-70 transition-opacity duration-300"></div>
     
-        <div className="relative p-5 z-10">
+        <div className="relative p-5 z-10 flex flex-col flex-1">
           {Img ? (
             <div className="relative overflow-hidden rounded-2xl">
               <img
@@ -36,16 +36,16 @@ const CardProject = ({ Img, Title, Description, Link: ProjectLink, id }) => {
             </div>
           ) : null}
           
-          <div className={`space-y-3 ${Img ? "mt-4" : ""}`}>
-            <h3 className="text-xl font-semibold text-light-text dark:bg-gradient-to-r dark:from-blue-200 dark:via-purple-200 dark:to-pink-200 dark:bg-clip-text dark:text-transparent">
+          <div className={`flex flex-col flex-1 ${Img ? "mt-4" : ""}`}>
+            <h3 className="text-xl font-semibold text-light-text dark:bg-gradient-to-r dark:from-blue-200 dark:via-purple-200 dark:to-pink-200 dark:bg-clip-text dark:text-transparent min-h-[3.5rem] line-clamp-2">
               {Title}
             </h3>
             
-            <p className="text-light-text-secondary dark:text-gray-300/80 text-sm leading-relaxed line-clamp-2">
+            <p className="mt-3 text-light-text-secondary dark:text-gray-300/80 text-sm leading-relaxed line-clamp-2">
               {Description}
             </p>
             
-            <div className="pt-4 flex items-center justify-between">
+            <div className="mt-auto pt-4 flex items-center justify-between">
               {ProjectLink ? (
                 <a
                 href={ProjectLink || "#"}
@@ -61,7 +61,7 @@ const CardProject = ({ Img, Title, Description, Link: ProjectLink, id }) => {
                 <span className="text-light-text-secondary dark:text-gray-500 text-sm">Demo Not Available</span>
               )}
               
-     
+    
 
               {id ? (
                 <Link

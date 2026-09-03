@@ -13,6 +13,7 @@ import CaseStudyPowerBI from "./Pages/CaseStudyPowerBI";
 import ProjectDefguard from "./Pages/ProjectDefguard";
 import ProjectDomainMonitor from "./Pages/ProjectDomainMonitor";
 import ProjectAIPerformanceEval from "./Pages/ProjectAIPerformanceEval";
+import ProjectDailyDateSlackBot from "./Pages/ProjectDailyDateSlackBot";
 import WelcomeScreen from "./Pages/WelcomeScreen";
 import { AnimatePresence } from 'framer-motion';
 import NotFoundPage from "./Pages/404";
@@ -198,6 +199,25 @@ const AIPerformanceEvalProjectLayout = () => (
   </>
 );
 
+const DailyDateSlackBotProjectLayout = () => (
+  <>
+    <AnimatedBackground />
+    <ProjectDailyDateSlackBot />
+    <footer>
+      <center>
+        <hr className="my-3 border-gray-400 opacity-15 sm:mx-auto lg:my-6 text-center" />
+        <span className="block text-sm pb-4 text-gray-500 text-center dark:text-gray-400">
+          © 2025{" "}
+          <a href="https://flowbite.com/" className="hover:underline">
+            kayelaxamana™
+          </a>
+          . All Rights Reserved.
+        </span>
+      </center>
+    </footer>
+  </>
+);
+
 function App() {
   const [showWelcome, setShowWelcome] = useState(true);
 
@@ -208,6 +228,7 @@ function App() {
         <Route path="/project/defguard" element={<DefguardProjectLayout />} />
         <Route path="/project/domain-monitor" element={<DomainMonitorProjectLayout />} />
         <Route path="/project/ai-performance-eval" element={<AIPerformanceEvalProjectLayout />} />
+        <Route path="/project/daily-date-slack-bot" element={<DailyDateSlackBotProjectLayout />} />
         <Route path="/project/:id" element={<ProjectPageLayout />} />
         <Route path="/case-study/ssl" element={<CaseStudyPageLayout />} />
         <Route path="/case-study/servicenow" element={<CaseStudyServiceNowLayout />} />

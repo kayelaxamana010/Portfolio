@@ -202,6 +202,29 @@ const techStacks = [
         "Monthly HTML report generation to S3 with Slack notifications",
       ],
     },
+    {
+      id: "daily-date-slack-bot",
+      Title: "Daily Date Slack Bot",
+      Description:
+        "Serverless weekday morning bot that posts today's Asia/Manila date to Slack — EventBridge-triggered Lambda, Terraform IaC, SSM-secured webhooks, and 4 passing unit tests.",
+      Img: "",
+      Link: "",
+      Github: "Private",
+      TechStack: [
+        "AWS Lambda",
+        "EventBridge",
+        "SSM Parameter Store",
+        "Terraform",
+        "Python 3.12",
+        "Slack Webhooks",
+      ],
+      Features: [
+        "Slack mrkdwn date format with Asia/Manila timezone via zoneinfo",
+        "Weekday cron schedule via Amazon EventBridge (7:00 AM local)",
+        "Slack webhook stored as SSM SecureString — no secrets in code",
+        "Terraform IaC with validated config and 4/4 unittest cases passing",
+      ],
+    },
   ];
 
   // Sample Case Studies data (for testing - replace with Supabase data later)
@@ -601,6 +624,7 @@ export default function FullWidthTabs() {
                 {displayedProjects.map((project, index) => (
                   <div
                     key={project.id || index}
+                    className="h-full"
                     data-aos={index % 3 === 0 ? "fade-up-right" : index % 3 === 1 ? "fade-up" : "fade-up-left"}
                     data-aos-duration={index % 3 === 0 ? "1000" : index % 3 === 1 ? "1200" : "1000"}
                   >

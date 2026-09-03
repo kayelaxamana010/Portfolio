@@ -2,7 +2,7 @@
 
 > A modern, responsive portfolio website showcasing my expertise in IT automation, DevOps, and AI integration.
 
-[![Live Demo](https://img.shields.io/badge/Live-Demo-brightgreen?style=for-the-badge&logo=vercel)](https://kslportfolio-id010.vercel.app/)
+[![Live Demo](https://img.shields.io/badge/Live-Demo-brightgreen?style=for-the-badge&logo=vercel)](https://kslportfolio.vercel.app/)
 [![GitHub](https://img.shields.io/badge/GitHub-Repository-blue?style=for-the-badge&logo=github)](https://github.com/kayelaxamana010/Portfolio)
 
 ![Portfolio Banner](https://img.shields.io/badge/Status-Active-success?style=flat-square)
@@ -16,7 +16,7 @@
 
 This is my personal portfolio website built to showcase my professional work as an **IT Professional** and **DevOps Engineer** specializing in automation and AI integration. The site features a modern, glassmorphic design with seamless light/dark mode transitions and engaging animations.
 
-**Live Site:** [https://kslportfolio.vercel.app/](https://kslportfolio.vercel.app//)
+**Live Site:** [kslportfolio.vercel.app](https://kslportfolio.vercel.app/)
 
 ---
 
@@ -41,15 +41,16 @@ This is my personal portfolio website built to showcase my professional work as 
 4. **Contact** - Direct email integration
 
 ### 🚀 **Projects**
-Three portfolio projects with dedicated detail pages matching the site theme (light/dark mode, Poppins typography, glassmorphic cards):
+Four portfolio projects with dedicated detail pages matching the site theme (light/dark mode, Poppins typography, glassmorphic cards):
 
 | Project | Route | Summary |
 |---------|-------|---------|
 | **Defguard MFA + IP Audit Pipeline** | `/project/defguard` | Serverless daily VPN audit pipeline — MFA compliance, geolocation risk, country-change detection, Slack alerts, and Google Sheets dashboard (AWS Lambda, CDK, Python) |
 | **Domain Monitoring Automation** | `/project/domain-monitor` | End-to-end domain expiry monitoring for 64 domains across multiple registrars — WhoisXML API, Google Apps Script, Sheets, Grafana, and Slack alerting |
 | **AI-Powered Member Performance Evaluation** | `/project/ai-performance-eval` | Output-based scoring from Jira and Slack artifacts via n8n and Claude API — replaces activity tracking with monthly AI-generated evaluations |
+| **Daily Date Slack Bot** | `/project/daily-date-slack-bot` | Serverless weekday morning bot posting Asia/Manila date to Slack — EventBridge Lambda, Terraform IaC, SSM-secured webhooks, unit tests, and project evidence screenshots |
 
-Each project page includes metrics, architecture overview, key features, tech stack, and role summary. Projects merge with Supabase data when configured, with local sample data as fallback.
+Each project page includes metrics, architecture overview, key features, tech stack, and role summary. The Daily Date Slack Bot page also includes a **Project Evidence** gallery (Slack mockup, code + tests, Terraform validate) with fullscreen modal preview. Projects merge with Supabase data when configured, with local sample data as fallback.
 
 ### 🏆 **Certificates**
 Thirteen certificates in the interactive gallery (PNG preview with full-screen modal; PDF assets stored in `public/`):
@@ -138,7 +139,9 @@ Portfolio_V5/
 │   ├── Photo.jpg                           # Profile image
 │   ├── *.svg                               # Tech stack icons (aws, n8n, claude, claudecode, etc.)
 │   ├── *-certificate.png                   # Certificate thumbnails
-│   └── *-certificate.pdf                   # Certificate PDFs
+│   ├── *-certificate.pdf                   # Certificate PDFs
+│   ├── daily-date-*.png                    # Daily Date Slack Bot evidence screenshots
+│   └── daily-date-slack-bot-portfolio.pdf  # Daily Date Slack Bot write-up (optional asset)
 ├── src/
 │   ├── components/
 │   │   ├── Background.jsx                  # Animated background
@@ -157,6 +160,7 @@ Portfolio_V5/
 │   │   ├── ProjectDefguard.jsx             # Defguard MFA + IP Audit Pipeline
 │   │   ├── ProjectDomainMonitor.jsx        # Domain Monitoring Automation
 │   │   ├── ProjectAIPerformanceEval.jsx    # AI Performance Evaluation System
+│   │   ├── ProjectDailyDateSlackBot.jsx    # Daily Date Slack Bot
 │   │   ├── CaseStudySSL.jsx                # SSL case study
 │   │   ├── CaseStudyServiceNow.jsx
 │   │   ├── CaseStudyPowerBI.jsx
@@ -292,7 +296,7 @@ Code quality and consistency rules.
 - [x] Animated welcome screen
 - [x] Tech Stack updates (n8n, Claude, Claude Code icons)
 - [x] Certificate gallery expansion (13 certificates, PNG + PDF assets)
-- [x] Dedicated project detail pages (Defguard, Domain Monitor, AI Performance Eval)
+- [x] Dedicated project detail pages (Defguard, Domain Monitor, AI Performance Eval, Daily Date Slack Bot)
 - [ ] Blog section
 - [ ] Contact form with backend
 - [ ] Multilingual support
@@ -316,7 +320,7 @@ This project is open source and available under the [MIT License](LICENSE).
 
 **Katherine Laxamana**
 
-- 🌐 Website: [https://kslportfolio.vercel.app/](https://kslportfolio.vercel.app/)
+- 🌐 Website: [kslportfolio.vercel.app](https://kslportfolio.vercel.app/)
 - 💼 LinkedIn: [katherine-laxamana](https://www.linkedin.com/in/katherine-laxamana/)
 - 🐙 GitHub: [@kayelaxamana010](https://github.com/kayelaxamana010)
 
